@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Golang multipart/formdata testing</title>
+  </head>
+  <body>
+{{if .Envs}}    Переменные окружения:<br>
+    <table>
+      <tr>
+        <td>Имя и значение переменной окружения</td>
+      </tr>
+{{range .Envs}}      <tr>
+        <td>{{.}}</td>
+      </tr>
+{{end}}    </table><br>
+{{else}}    no environment variables!<br>
+{{end}}{{if .Files_str}}    Файлы:<br>
+    <table>
+      <tr>
+        <td>Имя формы</td>
+        <td>Имя файла</td>
+      </tr>
+{{range .Files_str}}      <tr>
+        <td>{{.Formname}}</td>
+        <td>{{.Filename}}</td>
+      </tr>
+{{end}}    </table><br>
+{{else}}    no data<br>
+{{end}}  </body>
+</html>
+
+<!-- vim: set expandtab ts=2 : //-->

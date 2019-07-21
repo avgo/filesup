@@ -1,0 +1,5 @@
+Debian 9 (stretch):
+
+You can create file /etc/apache2/sites-available/example.avg.conf
+with the following content:
+Include filesup_dir/site.conf

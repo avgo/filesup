@@ -1,0 +1,29 @@
+<VirtualHost %VIRTUAL_HOST_NAME%>
+	setenv FILESUP_PREFIX        %PREFIX%
+	setenv FILESUP_UPLOADED_DIR  %FILESUP_UPLOADED_DIR%
+
+	Adddefaultcharset utf-8
+
+        <Directory %PREFIX%/u>
+                Options Indexes FollowSymLinks MultiViews ExecCGI
+                AllowOverride All
+                Order allow,deny
+                Allow from all
+		Require all granted
+        </Directory>
+
+	ScriptAlias /u/ %PREFIX%/u/
+
+	<Directory %PREFIX%/d>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Order allow,deny
+		Allow from all
+		Require all granted
+	</Directory>
+
+	DocumentRoot %PREFIX%/d
+
+	ErrorLog  %PREFIX%/var/log/error_log
+	CustomLog %PREFIX%/var/log/access_log virt
+</VirtualHost>

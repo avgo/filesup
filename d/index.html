@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Golang multipart/formdata testing</title>
+    <script>
+      'use strict';
+      document.addEventListener(
+        "DOMContentLoaded",
+        function ()
+        {
+          function for_each_input(func)
+          {
+            for (var el = form.firstChild; el; el = el.nextSibling)
+              if (el.tagName == "INPUT" && el.getAttribute("type") == "file")
+                func(el);
+          }
+          var form = document.getElementById("form1");
+          var btn_send = document.getElementById("send");
+          var next_val = 4;
+          var change = function()
+            {
+              var finded = false;
+              for_each_input(
+                function(inp)
+                {
+                  if (inp.files.length < 1)
+                    finded = true;
+                }
+              );
+              if (!finded)
+              {
+                var ne = document.createElement("input");
+                ne.setAttribute("type", "file");
+                ne.setAttribute("name", "p" + next_val); ++next_val;
+                ne.addEventListener("change", change);
+                form.insertBefore(ne, btn_send);
+                var br = document.createElement("br");
+                form.insertBefore(br, btn_send);
+              }
+            };
+          btn_send.addEventListener("click",
+            function()
+            {
+              for_each_input(
+                function(inp)
+                {
+                  if (inp.files.length < 1)
+                    inp.remove();
+                }
+              );
+            }
+          );
+          for_each_input(
+            function(el)
+            {
+              el.addEventListener("change", change);
+            }
+          );
+        }
+      );
+    </script>
+  </head>
+  <body>
+    <a href="/u/filesup">filesup</a>
+    <form id="form1" action="/u/filesup" method="POST" enctype="multipart/form-data">
+      <input type="text" name="p1" value="v1"><br>
+      <input type="text" name="p2" value="v2"><br>
+      <input type="file" name="p3"><br>
+      <input type="submit" value="отправить" id="send">
+    </form>
+  </body>
+</html>
+
+<!-- vim: set expandtab ts=2 : //-->
